@@ -1,6 +1,3 @@
-//O CODIGO AINDA ESTA EM MANUTENCAO ENTAO CASO ALGO NAO FUNCIONE E QUEIRA EDITAR FIQUE LIVRE
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -76,13 +73,15 @@ void menu(){
     printf("|              |      MENU       |              |\n");
     printf("|              +-----------------+              |\n");
     printf("|              +-----------------+              |\n");
-    printf("|              |    1-JOGAR      |              |\n");
+    printf("|              |   1-JOGAR       |              |\n");
     printf("|              |                 |              |\n");
-    printf("|              |    2-OPCOES     |              |\n");
+    printf("|              |   2-OPCOES      |              |\n");
     printf("|              |                 |              |\n");
-    printf("|              |    3-CREDITOS   |              |\n");
+    printf("|              |   3-CREDITOS    |              |\n");
     printf("|              |                 |              |\n");
-    printf("|              |    4-SAIR       |              |\n");
+    printf("|              |   4-ESTATISTICA |              |\n");
+    printf("|              |                 |              |\n");
+    printf("|              |   5-SAIR        |              |\n");
     printf("|              +-----------------+              |\n");
     printf("+-----------------------------------------------+\n\n");
 }
