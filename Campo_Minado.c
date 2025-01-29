@@ -1,8 +1,6 @@
 //O CODIGO AINDA ESTA EM MANUTENCAO ENTAO CASO ALGO NAO FUNCIONE E QUEIRA EDITAR FIQUE LIVRE
 
 
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
