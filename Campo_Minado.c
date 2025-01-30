@@ -3,15 +3,15 @@
 #include <time.h>
 #include <string.h>
 
-#define TAM 6
+#define TAM 12
 
 
 void imprimir(char matriz_jogador[TAM][TAM]){
     for(int i = 0; i < TAM; i++){
             for(int j = 0; j < TAM; j++){
-                printf("[%c]\t", matriz_jogador[i][j]);
+                printf("[%c]", matriz_jogador[i][j]);
             }
-            printf("\n\n\n");
+            printf("\n");
         }
 }
 void preencher(char matriz_jogador[TAM][TAM],int linha,int coluna, char gabarito[TAM][TAM]){
@@ -99,112 +99,117 @@ int main(){
     printf("O que deseja fazer: ");
     scanf("%d", &escolha);
 
-    srand(time(NULL));
+    if(escolha == 1){
+        srand(time(NULL));
 
-    //GERADOR DE BOMBAS
-    for(int i = 0; i < TAM; i++){
-        for(int j = 0; j < TAM; j++){
-            if(rand() % 10 > 8){
-                gabarito[i][j] = '*';
-            }
-        }
-    }
-    //GERADOR DA MATRIZ DO JOGADOR
-     for(int i = 0; i < TAM; i++){
-        for(int j = 0; j < TAM; j++){
-            matriz_jogador[i][j] = ' ';
-        }
-    }
-    //PRIMEIRA JOGADA
-    printf("\n");
-    imprimir(matriz_jogador);
-    printf("Digite a linha: ");
-    scanf("%d", &linha);
-    linha-=1;
-    printf("\nDigite a coluna: ");
-    scanf("%d", &coluna);
-    coluna-=1;
-    gabarito[linha][coluna] = '-';
-    matriz_jogador[linha][coluna] = gabarito[linha][coluna];
-    for(int i = -2; i<=2; i++){
-        for(int j = -2; j<=2; j++){
-            if((i+linha)<0 || (i+linha)>=TAM || (j+coluna)<0 || (j+coluna)>=TAM){
-                continue;
-            }
-            gabarito[linha+i][coluna+j]='-';
-        }
-    }
-    //imprimir(gabarito)
-
-
-    //GERADOR DOS NÚMEROS
-    int i;
-    for( i = 0; i < TAM; i++){
-        for(int j = 0; j < TAM; j++){
-            bombas =0;
-            if(gabarito[i][j]=='*'){
-                continue;
-            }
-            for(int k =-1; k<=1;k++){
-                for(int l =-1; l<=1;l++){
-                    if((l ==0 && k ==0) || (i+k)<0 || (i+k)>=TAM || (j+l)<0 || (j+l)>=TAM){
-                        continue;
-                    }
-                    if(gabarito[i+k][j+l]=='*'){
-                        bombas+=1;
-                    }
+        //GERADOR DE BOMBAS
+        for(int i = 0; i < TAM; i++){
+            for(int j = 0; j < TAM; j++){
+                if(rand() % 10 > 7){
+                    gabarito[i][j] = '*';
                 }
             }
-            if(bombas==0){
-                gabarito[i][j] = '-';
-            } else{
-                gabarito[i][j] = bombas+48; 
+        }
+        //GERADOR DA MATRIZ DO JOGADOR
+        for(int i = 0; i < TAM; i++){
+            for(int j = 0; j < TAM; j++){
+                matriz_jogador[i][j] = ' ';
             }
         }
-    }
-    clique(matriz_jogador,linha ,coluna, gabarito);
-
-    
-
-    //JOGADAS
-    do{
-        printf("\n\n");
+        //PRIMEIRA JOGADA
+        printf("\n");
         imprimir(matriz_jogador);
-        
-       //pergunta se quer colocar bandeira
-        while(1){
-            printf("Deseja posicionar uma bandeira (1-Sim, 2-Nao): ");
-            scanf("%d", &resposta_bandeira);
-            if(resposta_bandeira == 1){
-                bandeira(linha, coluna, matriz_jogador);
-                break;
-            }else if(resposta_bandeira == 2){
-                break;
-            }else{
-                printf("Digite somente 1 ou 2: ");
-                }
-            }
-        printf("\n\n");
-        imprimir(matriz_jogador);
-
         printf("Digite a linha: ");
         scanf("%d", &linha);
         linha-=1;
         printf("\nDigite a coluna: ");
         scanf("%d", &coluna);
         coluna-=1;
-        
+        gabarito[linha][coluna] = '-';
         matriz_jogador[linha][coluna] = gabarito[linha][coluna];
-        if(matriz_jogador[linha][coluna]=='*'){
-            imprimir(matriz_jogador);
-            printf("Perdeu!!!\n");
-            imprimir(gabarito);
-            break;    
-        } else{
-        matriz_jogador[linha][coluna] = gabarito[linha][coluna];
-        clique(matriz_jogador,linha ,coluna, gabarito);
+        for(int i = -2; i<=2; i++){
+            for(int j = -2; j<=2; j++){
+                if((i+linha)<0 || (i+linha)>=TAM || (j+coluna)<0 || (j+coluna)>=TAM){
+                    continue;
+                }
+                gabarito[linha+i][coluna+j]='-';
+            }
         }
+        //imprimir(gabarito)
+
+
+        //GERADOR DOS NÚMEROS
+        int i;
+        for( i = 0; i < TAM; i++){
+            for(int j = 0; j < TAM; j++){
+                bombas =0;
+                if(gabarito[i][j]=='*'){
+                    continue;
+                }
+                for(int k =-1; k<=1;k++){
+                    for(int l =-1; l<=1;l++){
+                        if((l ==0 && k ==0) || (i+k)<0 || (i+k)>=TAM || (j+l)<0 || (j+l)>=TAM){
+                            continue;
+                        }
+                        if(gabarito[i+k][j+l]=='*'){
+                            bombas+=1;
+                        }
+                    }
+                }
+                if(bombas==0){
+                    gabarito[i][j] = '-';
+                } else{
+                    gabarito[i][j] = bombas+48; 
+                }
+            }
+        }
+        clique(matriz_jogador,linha ,coluna, gabarito);
+
         
-    } while(1);
-    return 0;
+
+        //JOGADAS
+        do{
+            printf("\n\n");
+            imprimir(matriz_jogador);
+            
+        //pergunta se quer colocar bandeira
+            while(1){
+                printf("Deseja posicionar uma bandeira (1-Sim, 2-Nao): ");
+                scanf("%d", &resposta_bandeira);
+                if(resposta_bandeira == 1){
+                    bandeira(linha, coluna, matriz_jogador);
+                    break;
+                }else if(resposta_bandeira == 2){
+                    break;
+                }else{
+                    printf("Digite somente 1 ou 2: ");
+                    }
+                }
+            printf("\n\n");
+            imprimir(matriz_jogador);
+
+            printf("Digite a linha: ");
+            scanf("%d", &linha);
+            linha-=1;
+            printf("\nDigite a coluna: ");
+            scanf("%d", &coluna);
+            coluna-=1;
+            
+            matriz_jogador[linha][coluna] = gabarito[linha][coluna];
+            if(matriz_jogador[linha][coluna]=='*'){
+                imprimir(matriz_jogador);
+                printf("Perdeu!!!\n");
+                imprimir(gabarito);
+                break;    
+            } else{
+            matriz_jogador[linha][coluna] = gabarito[linha][coluna];
+            clique(matriz_jogador,linha ,coluna, gabarito);
+            }
+            
+        } while(1);
+    }
+    if(escolha == 5){
+        exit;
+    }
+    return 0; 
 }
